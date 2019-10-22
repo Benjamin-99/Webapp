@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "MasterDomainName",
+    "ParameterValue": "suggpro.com"
+  },
+  {
+    "ParameterKey": "DomainName",
+    "ParameterValue": "dev.suggpro.com"
+  }
+]

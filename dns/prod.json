@@ -1,0 +1,26 @@
+[
+  {
+    "ParameterKey": "HostedZoneStack",
+    "ParameterValue": "sugg-infrastructure-hosted-zone-prod"
+  },
+  {
+    "ParameterKey": "AmazonSESKey",
+    "ParameterValue": "mhqfAcLxoZWZLGRyMv4VWReXYxtJ2iz0gpIxklI0yZM=\n"
+  },
+  {
+    "ParameterKey": "DKIM1",
+    "ParameterValue": "lphmfybicr7qif6uisiz3wae7znv5ovj"
+  },
+  {
+    "ParameterKey": "DKIM2",
+    "ParameterValue": "lrlhxfewgo34abxdu4j2u4wehmgroxlt"
+  },
+  {
+    "ParameterKey": "DKIM3",
+    "ParameterValue": "udw3mto2woyje2cpgedyp4kjagt57uvg"
+  },
+  {
+    "ParameterKey": "Certificate",
+    "ParameterValue": "_79811d07096601906b5d5f081ae95e0d.suggpro.com.,CNAME,_ffd4484f462b466fa6af8080f35eeb4c.kirrbxfjtw.acm-validations.aws."
+  }
+]

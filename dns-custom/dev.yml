@@ -1,0 +1,42 @@
+Description: Production domain DNS rules
+
+Parameters:
+  HostedZoneStack:
+    Type: String
+    Default: sugg-infrastructure-hosted-zone-dev
+
+  TTL:
+    Type: Number
+    Default: 172800
+
+Resources:
+
+  TxtRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: 900
+      ResourceRecords:
+        - !Sub '"google-site-verification=404bNvQ-iAC7vghc9KXx743tSMOXf2Znjhson5QeVgE"'
+        - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
+
+  GoogleDKIMRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'google._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAqqNjfwkoMbeJYmJ3RaJdGy5vNmdSIX48glY+qn+Z+2voZg2eiKbYAPxxHq4MSSXbgYPC4LyN8ABKLAxfRXFiiCzxW+YveqLA3ndrBXA5YahZ8BcziL9q"'
+        - '"dMRsG3qp0S9k6GpEfjZ0K+wOpul4ol3KPqbEpvsUYu6Tnt6/WUUjuPexOLWFBCFztHDYuG7Fu3tQtTBbGnG3rxOP8OYlHRrrNSlXQGrtBfg9EnrvJA++YERQehhx6ze5Qs9XRSkTtUojYoRjP9mOo8AbWrD/YCXAO16bPhh94OVjUsBNYrX8C6mQHJKSPy0u37xMVfWlD1arldvt+SBxHEkm2zzFYV4WCwIDAQAB"'

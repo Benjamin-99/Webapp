@@ -1,0 +1,236 @@
+Description: General domain DNS rules
+
+Parameters:
+  HostedZoneStack:
+    Type: String
+
+  TTL:
+    Type: Number
+    Default: 172800
+
+  AmazonSESKey:
+    Type: String
+    Default: ""
+
+  DKIM1:
+    Type: String
+    Default: ""
+
+  DKIM2:
+    Type: String
+    Default: ""
+
+  DKIM3:
+    Type: String
+    Default: ""
+
+  Custom1:
+    Type: CommaDelimitedList
+    Default: ""
+
+  Custom2:
+    Type: CommaDelimitedList
+    Default: ""
+
+  Custom3:
+    Type: CommaDelimitedList
+    Default: ""
+
+  Custom4:
+    Type: CommaDelimitedList
+    Default: ""
+
+  Custom5:
+    Type: CommaDelimitedList
+    Default: ""
+
+  Certificate:
+    Type: CommaDelimitedList
+    Default: ""
+
+Conditions:
+  CreateAmazonSESKeyRecordSet: !Not [!Equals [!Ref AmazonSESKey, ""]]
+  CreateDKIM1RecordSet: !Not [!Equals [!Ref DKIM1, ""]]
+  CreateDKIM2RecordSet: !Not [!Equals [!Ref DKIM2, ""]]
+  CreateDKIM3RecordSet: !Not [!Equals [!Ref DKIM3, ""]]
+
+  CreateCustomRecordSet1: !Not [!Equals [!Join [ "", !Ref Custom1 ], ""]]
+  CreateCustomRecordSet2: !Not [!Equals [!Join [ "", !Ref Custom2 ], ""]]
+  CreateCustomRecordSet3: !Not [!Equals [!Join [ "", !Ref Custom3 ], ""]]
+  CreateCustomRecordSet4: !Not [!Equals [!Join [ "", !Ref Custom4 ], ""]]
+  CreateCustomRecordSet5: !Not [!Equals [!Join [ "", !Ref Custom5 ], ""]]
+
+  CreateCertificateRecordSet: !Not [!Equals [!Join [ "", !Ref Certificate ], ""]]
+
+Resources:
+
+  EmailRecordSet:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      Name:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: MX
+      TTL: !Ref TTL
+      ResourceRecords:
+        - 1 aspmx.l.google.com.
+        - 5 alt1.aspmx.l.google.com.
+        - 5 alt2.aspmx.l.google.com.
+        - 10 alt4.aspmx.l.google.com.
+        - 10 alt3.aspmx.l.google.com.
+
+  AmazonSESRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateAmazonSESKeyRecordSet
+    Properties:
+      Name:
+        !Sub
+        - '_amazonses.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Sub '"${AmazonSESKey}"'
+
+  DKIM1RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateDKIM1RecordSet
+    Properties:
+      Name:
+        !Sub
+        - '${DomainKey}._domainkey.${DomainName}'
+        - DomainKey: !Ref DKIM1
+          DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Sub
+          - '${DomainKey}.dkim.amazonses.com'
+          - DomainKey: !Ref DKIM1
+
+  DKIM2RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateDKIM2RecordSet
+    Properties:
+      Name:
+        !Sub
+        - '${DomainKey}._domainkey.${DomainName}'
+        - DomainKey: !Ref DKIM2
+          DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Sub
+          - '${DomainKey}.dkim.amazonses.com'
+          - DomainKey: !Ref DKIM2
+
+  DKIM3RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateDKIM3RecordSet
+    Properties:
+      Name:
+        !Sub
+        - '${DomainKey}._domainkey.${DomainName}'
+        - DomainKey: !Ref DKIM3
+          DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Sub
+          - '${DomainKey}.dkim.amazonses.com'
+          - DomainKey: !Ref DKIM3
+
+  CustomRecordSet1:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCustomRecordSet1
+    Properties:
+      Name:
+        !Select [0, !Ref Custom1]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Custom1]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Custom1]
+
+  CustomRecordSet2:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCustomRecordSet2
+    Properties:
+      Name:
+        !Select [0, !Ref Custom2]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Custom2]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Custom2]
+
+  CustomRecordSet3:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCustomRecordSet3
+    Properties:
+      Name:
+        !Select [0, !Ref Custom3]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Custom3]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Custom3]
+
+  CustomRecordSet4:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCustomRecordSet4
+    Properties:
+      Name:
+        !Select [0, !Ref Custom4]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Custom4]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Custom4]
+
+  CustomRecordSet5:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCustomRecordSet5
+    Properties:
+      Name:
+        !Select [0, !Ref Custom5]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Custom5]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Custom5]
+
+  CertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Condition: CreateCertificateRecordSet
+    Properties:
+      Name:
+        !Select [0, !Ref Certificate]
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: !Select [1, !Ref Certificate]
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - !Select [2, !Ref Certificate]

@@ -1,0 +1,131 @@
+Description: Production domain DNS rules
+
+Parameters:
+  HostedZoneStack:
+    Type: String
+    Default: sugg-infrastructure-hosted-zone-prod
+
+  TTL:
+    Type: Number
+    Default: 172800
+
+Resources:
+
+  DevNSRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'dev.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: NS
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - ns-1124.awsdns-12.org
+        - ns-925.awsdns-51.net
+        - ns-186.awsdns-23.com
+        - ns-1680.awsdns-18.co.uk
+
+  TxtRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: 900
+      ResourceRecords:
+        - !Sub '"google-site-verification=NPtvxdtMFGmS0tzO8erVe7ThKOs4-RnCgqKeZ13ofvU"'
+        - !Sub '"google-site-verification=7S1WETqxDLlijy4fys8ZEBcZ4KH9x6iU_YYMqswGTDw"'
+        - !Sub '"google-site-verification=UyzYlkgYak_qfl9HnViZaf04C0SPXaf1tYChJPlBlSg"'
+        - !Sub '"1|www.suggpro.com"'
+        - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
+
+  GoogleDKIMRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'google._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlEhigh4jj3AUJEMC9zS7DxPqW/s+G2qP7D4dyiQ2B//vgCj+D0tJ9740uv8Vgz35+xypPzOI/vmGOttEdXR5SobC8mJm5+fqWX0nsl58Meh2yyiXtgoA2TiRbhaQdpwwlMbsqvfhW05aF1j1VTlC6R80vGjKpa+JlPz+hjU3TvSdQnsu/LSB5lpO1ru/"'
+        - '"vw+xZNBBJYhd6xjts+aGguT9RqjSSn6S3/ifLqKC5PoGAUNMvMSdBG6IN34u07fT7zgrj7KZAMGlaEDgfTnmMmAhFgJ2ollBWB0owdVsYx0TxMJTEKfGjLR0G+gkSgC1o4OArtagPnu+Brp+HMXht2wfOwIDAQAB"'
+
+  ApiRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'api.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: A
+      TTL: 900
+      ResourceRecords:
+        - 35.181.78.115
+
+  BoRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'bo.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: A
+      TTL: 900
+      ResourceRecords:
+        - 35.181.78.115
+
+  RedirectRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - '${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: A
+      TTL: 900
+      ResourceRecords:
+        - 216.239.32.21
+        - 216.239.34.21
+        - 216.239.36.21
+        - 216.239.38.21
+
+  DevCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - '_93d8025cd138436b41a31d9e3599d982.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '_c474cc26a17ee1221ab0d7d0c03a2ec1.kirrbxfjtw.acm-validations.aws'
