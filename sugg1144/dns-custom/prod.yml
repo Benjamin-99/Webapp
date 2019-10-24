@@ -29,40 +29,37 @@ Resources:
         - ns-1683.awsdns-18.co.uk
         - ns-559.awsdns-05.net
         - ns-1311.awsdns-35.org
-#
-#  TxtRecordSet:
-#    Type: "AWS::Route53::RecordSet"
-#    Properties:
-#      Name:
-#        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
-#      HostedZoneId:
-#        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
-#      Type: TXT
-#      TTL: 900
-#      ResourceRecords:
-#        - !Sub '"google-site-verification=NPtvxdtMFGmS0tzO8erVe7ThKOs4-RnCgqKeZ13ofvU"'
-#        - !Sub '"google-site-verification=7S1WETqxDLlijy4fys8ZEBcZ4KH9x6iU_YYMqswGTDw"'
-#        - !Sub '"google-site-verification=UyzYlkgYak_qfl9HnViZaf04C0SPXaf1tYChJPlBlSg"'
-#        - !Sub '"1|www.suggpro.com"'
-#        - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
-#
-#  GoogleDKIMRecordSet:
-#    Type: "AWS::Route53::RecordSet"
-#    Properties:
-#      Name:
-#        !Sub
-#        - 'google._domainkey.${DomainName}'
-#        - DomainName:
-#            Fn::ImportValue:
-#              !Sub '${HostedZoneStack}-name'
-#      HostedZoneId:
-#        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
-#      Type: TXT
-#      TTL: !Ref "TTL"
-#      ResourceRecords:
-#        - '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAlEhigh4jj3AUJEMC9zS7DxPqW/s+G2qP7D4dyiQ2B//vgCj+D0tJ9740uv8Vgz35+xypPzOI/vmGOttEdXR5SobC8mJm5+fqWX0nsl58Meh2yyiXtgoA2TiRbhaQdpwwlMbsqvfhW05aF1j1VTlC6R80vGjKpa+JlPz+hjU3TvSdQnsu/LSB5lpO1ru/"'
-#        - '"vw+xZNBBJYhd6xjts+aGguT9RqjSSn6S3/ifLqKC5PoGAUNMvMSdBG6IN34u07fT7zgrj7KZAMGlaEDgfTnmMmAhFgJ2ollBWB0owdVsYx0TxMJTEKfGjLR0G+gkSgC1o4OArtagPnu+Brp+HMXht2wfOwIDAQAB"'
-#
+
+  TxtRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: 900
+      ResourceRecords:
+        - !Sub '"google-site-verification=17LS4y-I6gogxiZTxMyGSB2_5_kp49mS0bvc4mkXdR0"'
+        - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
+
+  GoogleDKIMRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'google._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAhPrVlIggfiXyunN89UjWYHIIWtIl7mXZ2NjbD7mP+aLWHSkMN1J8CDgqEajJgWzKDuexYytxklqolV0QyzKLCOJeON0TsIc33WdEHlSMxpAmIXlpemAg"'
+        - '"OwdDjwIixDLQSlAc30/zq1w0PWof4X/UnEOFhpe8/nQ1xl1bq1dF+VALsag3is8P3ggAZc1RLp1SLPjti0ggEe9BhtN3QjambmJHtgS/Eq6jE5x8ztq8jU7lJBDWjYNkAPFpv1KxUPkVpZ9DyRms0Yd+B/E8BqR2N7Ckrg0cMjjlkJrs2P8jFqLfplThB6YPI+rCu6ih0tfQnBzZwKT/90fTAEXw372OMwIDAQAB"'
+
 #  ApiRecordSet:
 #    Type: "AWS::Route53::RecordSet"
 #    Properties:

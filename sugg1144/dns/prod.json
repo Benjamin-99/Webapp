@@ -6,5 +6,21 @@
   {
     "ParameterKey": "Certificate",
     "ParameterValue": "_288021bbbefb0974723e3e6cb3821f3e.sugg1144.com.,CNAME,_fa03c537e4dfe81ee575ceba3a4bf2e6.kirrbxfjtw.acm-validations.aws."
+  },
+  {
+    "ParameterKey": "AmazonSESKey",
+    "ParameterValue": "LKO8oZ6VvPuO90wRq7HJj+htAZzFnoxJ2daOd2omrCs="
+  },
+  {
+    "ParameterKey": "DKIM1",
+    "ParameterValue": "2345djdapwbnmsrrjina6hkcs7fqckoi"
+  },
+  {
+    "ParameterKey": "DKIM2",
+    "ParameterValue": "uofzb6cbuqrb6523azlalsu4hwldvk7l"
+  },
+  {
+    "ParameterKey": "DKIM3",
+    "ParameterValue": "lakua24slx7f5gx2mfbzxbuqn7ufqkuv"
   }
 ]

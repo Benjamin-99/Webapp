@@ -2,5 +2,21 @@
   {
     "ParameterKey": "HostedZoneStack",
     "ParameterValue": "sugg1144-infrastructure-hosted-zone-dev"
+  },
+  {
+    "ParameterKey": "AmazonSESKey",
+    "ParameterValue": "AJP+3mX4FFSJH72mNO7KFfGDTj7eQXXJyNjcbOD6sqg="
+  },
+  {
+    "ParameterKey": "DKIM1",
+    "ParameterValue": "h2xupij5eyv453i5yfxjqjvsexf5epuz"
+  },
+  {
+    "ParameterKey": "DKIM2",
+    "ParameterValue": "4xyoycdbz5tqgzxdglbjyn5vlxyt6b77"
+  },
+  {
+    "ParameterKey": "DKIM3",
+    "ParameterValue": "jjc2rxqucec3g25dxr2l6qp474uvf2rg"
   }
 ]
