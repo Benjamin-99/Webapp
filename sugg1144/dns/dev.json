@@ -1,0 +1,6 @@
+[
+  {
+    "ParameterKey": "HostedZoneStack",
+    "ParameterValue": "sugg1144-infrastructure-hosted-zone-dev"
+  }
+]

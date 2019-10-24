@@ -1,0 +1,44 @@
+Description: Related domain certificates
+
+Resources:
+
+  CertificateSuggPro:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: 'suggpro.com'
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - '*.suggpro.com'
+        - 'suggpro.fr'
+#        - 'suggestions.menu'
+        - 'sugg.me'
+        - 'sugg.in'
+        - 'sugg.fr'
+        - 'sugg.today'
+
+  CertificateSugg1144:
+    Type: AWS::CertificateManager::Certificate
+    Properties:
+      DomainName: 'sugg1144.com'
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - '*.sugg1144.com'
+        - 'sugg1144.fr'
+        - '*.sugg1144.fr'
+        - 'monardoisedujour.fr'
+        - 'monardoisedujour.com'
+        - 'ardoise-magique.com'
+
+Outputs:
+
+  CertificateSuggProArn:
+    Value: !Ref CertificateSuggPro
+
+    Export:
+      Name: !Sub "${AWS::StackName}-suggpro-arn"
+
+  CertificateSugg1144Arn:
+    Value: !Ref CertificateSugg1144
+
+    Export:
+      Name: !Sub "${AWS::StackName}-sugg1144-arn"

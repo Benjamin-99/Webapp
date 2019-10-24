@@ -1,0 +1,82 @@
+Description: "Create related hosted zone"
+
+Resources:
+  SuggProFrHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: suggpro.fr
+    DeletionPolicy: Delete
+
+  SuggestionsMenuHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: suggestions.menu
+    DeletionPolicy: Delete
+
+  Sugg1144FrHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: sugg1144.fr
+    DeletionPolicy: Delete
+
+  SuggMeHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: sugg.me
+    DeletionPolicy: Delete
+
+  SuggInHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: sugg.in
+    DeletionPolicy: Delete
+
+  SuggFrHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: sugg.fr
+    DeletionPolicy: Delete
+
+  MonArdoiseDuJourFrHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: monardoisedujour.fr
+    DeletionPolicy: Delete
+
+  MonArdoiseDuJourComHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: monardoisedujour.com
+    DeletionPolicy: Delete
+
+  ArdoiseMagiqueComHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: ardoise-magique.com
+    DeletionPolicy: Delete
+
+  SuggTodayHostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: sugg.today
+    DeletionPolicy: Delete

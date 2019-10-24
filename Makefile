@@ -1,14 +1,19 @@
-PROJECT_NAME ?= sugg
+PROJECT_NAME ?= suggpro
 PROJECT_VARIANT_NAME ?= infrastructure
 STAGE ?= dev
 PROFILE ?= default
 
 AWS_REGION ?= eu-west-1
+BASE_FOLDER = $(PROJECT_NAME)
+ifeq ($(PROJECT_NAME), suggpro)
+    PROJECT_NAME = sugg
+endif
 
 hosted-zone:
 	@ set -e ; \
-	FOLDER="hosted-zone" ; \
-	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$FOLDER-$(STAGE) ; \
+	VARIANT="hosted-zone" ; \
+	FOLDER="$(BASE_FOLDER)/$$VARIANT" ; \
+	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$VARIANT-$(STAGE) ; \
 	PARAMETERS=$$(jq -r '.[] | [.ParameterKey, .ParameterValue] | join("=")' $$FOLDER/$(STAGE).json) ; \
 	FILE_TEMPLATE=$$FOLDER/base.yml ; \
 	aws cloudformation deploy \
@@ -21,8 +26,9 @@ hosted-zone:
 
 dns:
 	@ set -e ; \
-	FOLDER="dns" ; \
-	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$FOLDER-$(STAGE) ; \
+	VARIANT="dns" ; \
+	FOLDER="$(BASE_FOLDER)/$$VARIANT" ; \
+	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$VARIANT-$(STAGE) ; \
 	PARAMETERS=$$(jq -r '.[] | [.ParameterKey, .ParameterValue] | join("=")' $$FOLDER/$(STAGE).json) ; \
 	FILE_TEMPLATE=$$FOLDER/base.yml ; \
 	aws cloudformation deploy \
@@ -36,7 +42,7 @@ dns:
 certificates:
 	@ set -e ; \
 	VARIANT="certificates" ; \
-    FOLDER="certificates" ; \
+	FOLDER="$(BASE_FOLDER)/$$VARIANT" ; \
 	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$VARIANT-$(STAGE) ; \
 	PARAMETERS=$$(jq -r '.[] | [.ParameterKey, .ParameterValue] | join("=")' $$FOLDER/$(STAGE).json) ; \
 	FILE_TEMPLATE=$$FOLDER/base.yml ; \
@@ -50,8 +56,9 @@ certificates:
 
 dns-custom:
 	@ set -e ; \
-	FOLDER="dns-custom" ; \
-	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$FOLDER-$(STAGE) ; \
+	VARIANT="dns-custom" ; \
+	FOLDER="$(BASE_FOLDER)/$$VARIANT" ; \
+	AWS_STACK_NAME=$(PROJECT_NAME)-$(PROJECT_VARIANT_NAME)-$$VARIANT-$(STAGE) ; \
 	FILE_TEMPLATE=$$FOLDER/$(STAGE).yml ; \
 	aws cloudformation deploy \
 		--template-file $$FILE_TEMPLATE \
@@ -60,4 +67,43 @@ dns-custom:
 		--stack-name $$AWS_STACK_NAME \
 		--profile $(PROFILE)
 
-.PHONY: hosted-zone dns certificates dns-custom
+other-hosted-zone:
+	@ set -e ; \
+	VARIANT="hosted-zone" ; \
+	FOLDER="other/$$VARIANT" ; \
+	AWS_STACK_NAME=sugg-$(PROJECT_VARIANT_NAME)-other-$$VARIANT-$(STAGE) ; \
+	FILE_TEMPLATE=$$FOLDER/$(STAGE).yml ; \
+	aws cloudformation deploy \
+		--template-file $$FILE_TEMPLATE \
+		--region $(AWS_REGION) \
+		--capabilities CAPABILITY_IAM \
+		--stack-name $$AWS_STACK_NAME \
+		--profile $(PROFILE)
+
+other-certificates:
+	@ set -e ; \
+	VARIANT="certificates" ; \
+	FOLDER="other/$$VARIANT" ; \
+	AWS_STACK_NAME=sugg-$(PROJECT_VARIANT_NAME)-other-$$VARIANT-$(STAGE) ; \
+	FILE_TEMPLATE=$$FOLDER/$(STAGE).yml ; \
+	aws cloudformation deploy \
+		--template-file $$FILE_TEMPLATE \
+		--region $(AWS_REGION) \
+		--capabilities CAPABILITY_IAM \
+		--stack-name $$AWS_STACK_NAME \
+		--profile $(PROFILE)
+
+other-dns:
+	@ set -e ; \
+	VARIANT="dns" ; \
+	FOLDER="other/$$VARIANT" ; \
+	AWS_STACK_NAME=sugg-$(PROJECT_VARIANT_NAME)-other-$$VARIANT-$(STAGE) ; \
+	FILE_TEMPLATE=$$FOLDER/$(STAGE).yml ; \
+	aws cloudformation deploy \
+		--template-file $$FILE_TEMPLATE \
+		--region $(AWS_REGION) \
+		--capabilities CAPABILITY_IAM \
+		--stack-name $$AWS_STACK_NAME \
+		--profile $(PROFILE)
+
+.PHONY: hosted-zone dns certificates dns-custom other-hosted-zone other-certificates other-dns

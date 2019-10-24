@@ -1,0 +1,108 @@
+Description: Production domain DNS rules
+
+Parameters:
+  TTL:
+    Type: Number
+    Default: 172800
+
+Resources:
+
+  SuggProFrCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_16963e3ff6d1efbe92bfdddaed549e39.suggpro.fr'
+      HostedZoneName: 'suggpro.fr.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_2479cd1c511a69ebf4f2b8b747f84185.kirrbxfjtw.acm-validations.aws.'
+
+  SuggInCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_a3adafe37bfd271ba1b7a2a63a1ed441.sugg.in.'
+      HostedZoneName: 'sugg.in.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_e6767d857fba878adeb3e7767970f482.kirrbxfjtw.acm-validations.aws.'
+
+  SuggFrCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_0c035fe939ea697f84e299525f842b35.sugg.fr'
+      HostedZoneName: 'sugg.fr.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_1eb3ab0c3130420aa87ba01716444b85.kirrbxfjtw.acm-validations.aws.'
+
+  SuggTodayCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_2ef01067ad40abcd617ac6f4a3c883f3.sugg.today.'
+      HostedZoneName: 'sugg.today.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_1fc6d05cb4f05db6191c0d84789e59a3.kirrbxfjtw.acm-validations.aws.'
+
+  SuggMeCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_04e43f4b7753815c6f151ba313cf0dc6.sugg.me'
+      HostedZoneName: 'sugg.me.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_05034b85b1946925e631712212c2066b.kirrbxfjtw.acm-validations.aws'
+
+  SuggestionsMenuCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_2ae2e707e69d802aa848edf82bb77adc.suggestions.menu.'
+      HostedZoneName: 'suggestions.menu.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_d8a0948f09e120cb4ed35f1704d4b643.kirrbxfjtw.acm-validations.aws.'
+
+  MonArdoiseDuJourComCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_076a26a84790ab17b45f18af367c7107.monardoisedujour.com.'
+      HostedZoneName: 'monardoisedujour.com.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_ab1e69cf17fe33a208bd8cb118a1ca57.kirrbxfjtw.acm-validations.aws.'
+
+  Sugg1144FrCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_ab6b7781020da73da00781160831bdac.sugg1144.fr.'
+      HostedZoneName: 'sugg1144.fr.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_b220488c2dab65e07a2901d8f7fa13f6.kirrbxfjtw.acm-validations.aws.'
+
+  MonArdoiseDuJourFrCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_07e22232a91e7501aa9a1ad1c268b002.monardoisedujour.fr.'
+      HostedZoneName: 'monardoisedujour.fr.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_48d24d1faac22153d8507f00371f70ab.kirrbxfjtw.acm-validations.aws.'
+
+  ArdoiseMagiqueComCertificateRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name: '_0b1583f9b372b8386162b03266b1f6ed.ardoise-magique.com.'
+      HostedZoneName: 'ardoise-magique.com.'
+      Type: CNAME
+      TTL: 900
+      ResourceRecords:
+        - '_a22b2e24ff10257e1bdddf893e7289c4.kirrbxfjtw.acm-validations.aws.'

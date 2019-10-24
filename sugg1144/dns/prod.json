@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "HostedZoneStack",
+    "ParameterValue": "sugg1144-infrastructure-hosted-zone-prod"
+  },
+  {
+    "ParameterKey": "Certificate",
+    "ParameterValue": "_288021bbbefb0974723e3e6cb3821f3e.sugg1144.com.,CNAME,_fa03c537e4dfe81ee575ceba3a4bf2e6.kirrbxfjtw.acm-validations.aws."
+  }
+]
