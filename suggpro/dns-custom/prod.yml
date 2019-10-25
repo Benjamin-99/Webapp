@@ -95,25 +95,6 @@ Resources:
       ResourceRecords:
         - 35.181.78.115
 
-  RedirectRecordSet:
-    Type: "AWS::Route53::RecordSet"
-    Properties:
-      Name:
-        !Sub
-        - '${DomainName}'
-        - DomainName:
-            Fn::ImportValue:
-              !Sub '${HostedZoneStack}-name'
-      HostedZoneId:
-        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
-      Type: A
-      TTL: 900
-      ResourceRecords:
-        - 216.239.32.21
-        - 216.239.34.21
-        - 216.239.36.21
-        - 216.239.38.21
-
   DevCertificateRecordSet:
     Type: "AWS::Route53::RecordSet"
     Properties:

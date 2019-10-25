@@ -4,9 +4,12 @@ STAGE ?= dev
 PROFILE ?= default
 
 AWS_REGION ?= eu-west-1
-BASE_FOLDER = $(PROJECT_NAME)
+
 ifeq ($(PROJECT_NAME), suggpro)
     PROJECT_NAME = sugg
+    BASE_FOLDER = suggpro
+else
+    BASE_FOLDER = $(PROJECT_NAME)
 endif
 
 hosted-zone:
