@@ -4,6 +4,10 @@
     "ParameterValue": "sugg1144-infrastructure-hosted-zone-dev"
   },
   {
+    "ParameterKey": "Certificate",
+    "ParameterValue": "_c7b26d65f4df8395c319ad5f5f1162e9.dev.sugg1144.com.,CNAME,_d58804a2d74b3adb5776b9ddcd9d8b7e.kirrbxfjtw.acm-validations.aws."
+  },
+  {
     "ParameterKey": "AmazonSESKey",
     "ParameterValue": "AJP+3mX4FFSJH72mNO7KFfGDTj7eQXXJyNjcbOD6sqg="
   },

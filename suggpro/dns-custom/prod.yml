@@ -43,6 +43,7 @@ Resources:
         - !Sub '"google-site-verification=NPtvxdtMFGmS0tzO8erVe7ThKOs4-RnCgqKeZ13ofvU"'
         - !Sub '"google-site-verification=7S1WETqxDLlijy4fys8ZEBcZ4KH9x6iU_YYMqswGTDw"'
         - !Sub '"google-site-verification=UyzYlkgYak_qfl9HnViZaf04C0SPXaf1tYChJPlBlSg"'
+        - !Sub '"google-site-verification=8v-IJx_ZJi5hLl9GGiUe03ocL509SLUGA4Pr0qBkpUw"'
         - !Sub '"1|www.suggpro.com"'
         - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
 
