@@ -1,0 +1,62 @@
+Description: "Create Imgix user"
+
+Parameters:
+
+  Stage:
+    Type: String
+    Default: "dev"
+
+  AssetsStack:
+    Type: String
+    Default: "sugg-assets-dev"
+
+Resources:
+  ImgixUser:
+    Type: AWS::IAM::User
+    Properties:
+      UserName: !Sub "imgix-${Stage}"
+      Policies:
+        - PolicyName: !Sub "imgix-${Stage}"
+          PolicyDocument:
+            Version: 2012-10-17
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:ListBucket
+                  - s3:GetBucketLocation
+                  - s3:GetObject
+                Resource:
+                  - !Sub
+                    - '${AssetsBucketArn}'
+                    - AssetsBucketArn:
+                        Fn::ImportValue:
+                          !Sub '${AssetsStack}-assets-bucket-arn'
+                  - !Sub
+                    - '${AssetsBucketArn}/*'
+                    - AssetsBucketArn:
+                        Fn::ImportValue:
+                          !Sub '${AssetsStack}-assets-bucket-arn'
+                  - !Sub
+                    - '${AssetsBucketArn}'
+                    - AssetsBucketArn:
+                        Fn::ImportValue:
+                          !Sub '${AssetsStack}-assets-tmp-bucket-arn'
+                  - !Sub
+                    - '${AssetsBucketArn}/*'
+                    - AssetsBucketArn:
+                        Fn::ImportValue:
+                          !Sub '${AssetsStack}-assets-tmp-bucket-arn'
+
+  ImgixAccessKey:
+    Type: AWS::IAM::AccessKey
+    Properties:
+      Serial: 1
+      Status: Active
+      UserName: !Ref ImgixUser
+
+Outputs:
+
+  AccessKey:
+    Value: !Ref ImgixAccessKey
+    Export:
+      Name: !Sub "${AWS::StackName}-access-key"

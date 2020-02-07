@@ -109,4 +109,17 @@ other-dns:
 		--stack-name $$AWS_STACK_NAME \
 		--profile $(PROFILE)
 
+other-imgix:
+	@ set -e ; \
+	VARIANT="imgix" ; \
+	FOLDER="other/$$VARIANT" ; \
+	AWS_STACK_NAME=sugg-$(PROJECT_VARIANT_NAME)-other-$$VARIANT-$(STAGE) ; \
+	FILE_TEMPLATE=$$FOLDER/$(STAGE).yml ; \
+	aws cloudformation deploy \
+		--template-file $$FILE_TEMPLATE \
+		--region $(AWS_REGION) \
+		--capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM \
+		--stack-name $$AWS_STACK_NAME \
+		--profile $(PROFILE)
+
 .PHONY: hosted-zone dns certificates dns-custom other-hosted-zone other-certificates other-dns
