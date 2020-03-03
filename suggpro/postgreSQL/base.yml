@@ -1,0 +1,35 @@
+Description: "Create PostgreSQL database"
+
+Parameters:
+  Stage:
+    Type: String
+
+Conditions:
+  isProd: !Equals [ !Ref Stage, "prod" ]
+
+Resources:
+  Database:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      DBInstanceClass: db.t2.micro
+      AllocatedStorage: 20
+      DBInstanceIdentifier:
+        !Sub "sugg-${Stage}"
+      DBName:
+        !Sub "sugg${Stage}"
+      Engine: postgres
+      EngineVersion: 11.5
+      MasterUserPassword: '{{resolve:secretsmanager:Postgres:SecretString:password}}'
+      MasterUsername: '{{resolve:secretsmanager:Postgres:SecretString:username}}'
+      MultiAZ: !If [isProd, true, false]
+
+Outputs:
+  HostedZone:
+    Value: !GetAtt Database.Endpoint.Address
+    Export:
+      Name: !Sub "${AWS::StackName}-database-address"
+
+  DomainName:
+    Value: !GetAtt Database.Endpoint.Port
+    Export:
+      Name: !Sub "${AWS::StackName}-database-port"
