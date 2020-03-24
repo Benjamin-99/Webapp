@@ -46,6 +46,7 @@ Resources:
         - !Sub '"google-site-verification=8v-IJx_ZJi5hLl9GGiUe03ocL509SLUGA4Pr0qBkpUw"'
         - !Sub '"1|www.suggpro.com"'
         - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
+        - !Sub '"stripe-verification=b5c313cb86e2ee3f5966973e3430441e7cf0bb5c81175ea2e5a0de243a2f77a1"'
 
   GoogleDKIMRecordSet:
     Type: "AWS::Route53::RecordSet"
@@ -111,3 +112,115 @@ Resources:
       TTL: !Ref "TTL"
       ResourceRecords:
         - '_c474cc26a17ee1221ab0d7d0c03a2ec1.kirrbxfjtw.acm-validations.aws'
+
+  StripeDKIM1RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - '6h3kdgaix5ulalmat3kxei7kyfm4qmrn._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '6h3kdgaix5ulalmat3kxei7kyfm4qmrn.dkim.custom-email-domain.stripe.com.'
+
+  StripeDKIM2RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - '6shrnewtez77ueeybuixcxwxipxuqksp._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '6shrnewtez77ueeybuixcxwxipxuqksp.dkim.custom-email-domain.stripe.com.'
+
+  StripeDKIM3RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - '7pjnax2cqadkiix5xdv7vsckwna7dyk7._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - '7pjnax2cqadkiix5xdv7vsckwna7dyk7.dkim.custom-email-domain.stripe.com.'
+
+  StripeDKIM4RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'ywaithxs2pit6rxksfff4ojyvmhyfjwj._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - 'ywaithxs2pit6rxksfff4ojyvmhyfjwj.dkim.custom-email-domain.stripe.com.'
+
+  StripeDKIM5RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'jspawyczfrfzaoiuxnodjv4plo53t2e4._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - 'jspawyczfrfzaoiuxnodjv4plo53t2e4.dkim.custom-email-domain.stripe.com.'
+
+  StripeDKIM6RecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'gkhohliofkw455dtbv5ct2td3y5fkgdj._domainkey.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - 'gkhohliofkw455dtbv5ct2td3y5fkgdj.dkim.custom-email-domain.stripe.com.'
+
+  StripeBounceRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'bounce.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: CNAME
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - 'custom-email-domain.stripe.com.'
