@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "HostedZoneStack",
+    "ParameterValue": "suggbo-infrastructure-hosted-zone-dev"
+  },
+  {
+    "ParameterKey": "Certificate",
+    "ParameterValue": "_91096a1d07d90c0a43a7f071c4f4541f.dev.admin.suggpro.com.,CNAME,_7bded271d4b63462aafe1579fa1a1003.auiqqraehs.acm-validations.aws."
+  }
+]

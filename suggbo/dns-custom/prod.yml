@@ -1,0 +1,31 @@
+Description: Production domain DNS rules
+
+Parameters:
+  HostedZoneStack:
+    Type: String
+    Default: suggbo-infrastructure-hosted-zone-prod
+
+  TTL:
+    Type: Number
+    Default: 172800
+
+Resources:
+
+  DevNSRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'dev.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: NS
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - ns-766.awsdns-31.net.
+        - ns-1936.awsdns-50.co.uk.
+        - ns-259.awsdns-32.com.
+        - ns-1464.awsdns-55.org.

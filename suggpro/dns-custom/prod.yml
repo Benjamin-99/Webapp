@@ -30,6 +30,25 @@ Resources:
         - ns-186.awsdns-23.com
         - ns-1680.awsdns-18.co.uk
 
+  AdminNSRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'admin.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: NS
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - ns-703.awsdns-23.net.
+        - ns-1135.awsdns-13.org.
+        - ns-22.awsdns-02.com.
+        - ns-1815.awsdns-34.co.uk.
+
   TxtRecordSet:
     Type: "AWS::Route53::RecordSet"
     Properties:
