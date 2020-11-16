@@ -1,0 +1,56 @@
+Description: Domain certificates
+
+Parameters:
+
+  MasterDomainName:
+    Type: String
+    Default: ""
+
+  DomainName:
+    Type: String
+
+Conditions:
+  CreateFromMasterDomainName: !Not [!Equals [!Ref MasterDomainName, ""]]
+  CreateFromDomainName: !Equals [!Ref MasterDomainName, ""]
+
+Resources:
+
+  Certificate:
+    Type: AWS::CertificateManager::Certificate
+    Condition: CreateFromDomainName
+    Properties:
+      DomainName: !Ref DomainName
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - !Sub '*.${DomainName}'
+
+  CertificateFromMaster:
+    Type: AWS::CertificateManager::Certificate
+    Condition: CreateFromMasterDomainName
+    Properties:
+      DomainName: !Ref MasterDomainName
+      ValidationMethod: DNS
+      SubjectAlternativeNames:
+        - !Ref DomainName
+        - !Sub '*.${DomainName}'
+
+Outputs:
+
+  DomainName:
+    Value:
+      Fn::If:
+        - CreateFromMasterDomainName
+        - !Ref MasterDomainName
+        - !Ref DomainName
+    Export:
+      Name: !Sub "${AWS::StackName}-name"
+
+  CertificateArn:
+    Value:
+      Fn::If:
+        - CreateFromMasterDomainName
+        - !Ref CertificateFromMaster
+        - !Ref Certificate
+
+    Export:
+      Name: !Sub "${AWS::StackName}-arn"

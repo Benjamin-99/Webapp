@@ -1,0 +1,31 @@
+Description: Production domain DNS rules
+
+Parameters:
+  HostedZoneStack:
+    Type: String
+    Default: onvaauresto-infrastructure-hosted-zone-prod
+
+  TTL:
+    Type: Number
+    Default: 172800
+
+Resources:
+
+  DevNSRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        !Sub
+        - 'dev.${DomainName}'
+        - DomainName:
+            Fn::ImportValue:
+              !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: NS
+      TTL: !Ref "TTL"
+      ResourceRecords:
+        - ns-340.awsdns-42.com.
+        - ns-1423.awsdns-49.org.
+        - ns-705.awsdns-24.net.
+        - ns-1915.awsdns-47.co.uk.

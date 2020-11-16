@@ -1,0 +1,10 @@
+[
+  {
+    "ParameterKey": "MasterDomainName",
+    "ParameterValue": "onvaauresto.fr"
+  },
+  {
+    "ParameterKey": "DomainName",
+    "ParameterValue": "dev.onvaauresto.fr"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "ParameterKey": "HostedZoneStack",
+    "ParameterValue": "onvaauresto-infrastructure-hosted-zone-prod"
+  },
+  {
+    "ParameterKey": "Certificate",
+    "ParameterValue": "_6dc96b48cdadf5bcf31d4b651c5ace7e.onvaauresto.fr.,CNAME,_ec370527391182828066e6efd33fa8fb.wggjkglgrm.acm-validations.aws."
+  },
+  {
+    "ParameterKey": "Custom1",
+    "ParameterValue": "_833d98301988400e7f11b605de811f0e.onvaauresto.fr.,CNAME,_52ca5eb4a57845989acea6d0913812a1.wggjkglgrm.acm-validations.aws."
+  }
+]

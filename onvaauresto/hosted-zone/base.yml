@@ -1,0 +1,25 @@
+Description: "Create hosted zone"
+
+Parameters:
+  DomainName:
+    Type: String
+
+Resources:
+  HostedZone:
+    Type: "AWS::Route53::HostedZone"
+    Properties:
+      HostedZoneConfig:
+        Comment: !Sub "Created by CloudFormation stack: ${AWS::StackName}"
+      Name: !Ref DomainName
+    DeletionPolicy: Delete
+
+Outputs:
+  HostedZone:
+    Value: !Ref HostedZone
+    Export:
+      Name: !Sub "${AWS::StackName}-id"
+
+  DomainName:
+    Value: !Ref DomainName
+    Export:
+      Name: !Sub "${AWS::StackName}-name"
