@@ -29,3 +29,16 @@ Resources:
         - ns-1423.awsdns-49.org.
         - ns-705.awsdns-24.net.
         - ns-1915.awsdns-47.co.uk.
+
+  TxtRecordSet:
+    Type: "AWS::Route53::RecordSet"
+    Properties:
+      Name:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-name'
+      HostedZoneId:
+        Fn::ImportValue: !Sub '${HostedZoneStack}-id'
+      Type: TXT
+      TTL: 900
+      ResourceRecords:
+        - !Sub '"google-site-verification=VKAWOi3oU77XSQG9ZUIeu-OXwDjtuuPMe8tfjjRVepY"'
+        - !Sub '"v=spf1 include:_spf.google.com include:amazonses.com ~all"'
